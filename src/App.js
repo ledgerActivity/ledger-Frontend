@@ -7,10 +7,12 @@ import data from './dataStorage/data.json';
 import LedgerBalance from './componenets/LedgerBalance';
 import LedgerDeposit from './componenets/LedgerDeposit';
 import LedgerWithdraw from './componenets/LedgerWithdraw';
+import Login from './componenets/login/Login';
 
 function App() {
   const [particularList, setParticularList] = useState(data);
   const [balance, setBalance] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const addDeposit = (newDeposit) => {
     let copy = [...particularList];
@@ -28,13 +30,24 @@ function App() {
     setBalance(newBalance)
   }
 
+  const changeUserLogged = (newStatus) =>{
+    setLoggedIn(newStatus);
+  }
+
 
   return (
 
     <div >
       <LedgerHeader />
+      
 
-      <div class="container">
+      {loggedIn ? <LedgerList particularList={particularList}/> :<Login changeUserLogged={changeUserLogged}/> }
+
+      
+
+
+
+      {/* <div class="container">
         <LedgerList particularList={particularList}/>
         <LedgerBalance balance = {balance}/>
       </div>
@@ -47,7 +60,7 @@ function App() {
       <br/>
       <div class="container" >
         <LedgerWithdraw addWithDraw={addWithDraw}/>
-      </div>
+      </div> */}
     </div>
     
   );
